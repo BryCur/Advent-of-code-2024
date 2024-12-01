@@ -1,0 +1,11 @@
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\bin\Debug\net8.0\aocUtils.deps.json
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\bin\Debug\net8.0\aocUtils.dll
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\bin\Debug\net8.0\aocUtils.pdb
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\obj\Debug\net8.0\aocUtils.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\obj\Debug\net8.0\aocUtils.AssemblyInfoInputs.cache
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\obj\Debug\net8.0\aocUtils.AssemblyInfo.cs
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\obj\Debug\net8.0\aocUtils.csproj.CoreCompileInputs.cache
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\obj\Debug\net8.0\aocUtils.dll
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\obj\Debug\net8.0\refint\aocUtils.dll
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\obj\Debug\net8.0\aocUtils.pdb
+C:\projects\AdventOfCode\2024\ConsoleApp1\aocUtils\obj\Debug\net8.0\ref\aocUtils.dll
