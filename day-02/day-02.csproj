@@ -8,4 +8,19 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="inputs\example.txt" />
+      <Content Include="inputs\example.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="inputs\real-input.txt" />
+      <Content Include="inputs\real-input.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\aocUtils\aocUtils.csproj" />
+    </ItemGroup>
+
 </Project>
