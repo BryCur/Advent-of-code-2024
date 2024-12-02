@@ -21,6 +21,12 @@
 **/.idea/**/contentModel.xml
 **/.idea/**/modules.xml
 
+# generated files 
+**/[Oo]bj/
+**/[Bb]in/
+**/[Oo]bj/**
+**/[Bb]in/**
+
 *.suo
 *.user
 .vs/
