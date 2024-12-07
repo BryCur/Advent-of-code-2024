@@ -19,6 +19,7 @@ public class Coordinate2D
 
     public static Coordinate2D operator +(Coordinate2D a, Coordinate2D b) => new Coordinate2D(a.x + b.x, a.y + b.y);
     public static Coordinate2D operator -(Coordinate2D a, Coordinate2D b) => new Coordinate2D(a.x - b.x, a.y - b.y);
+    public static Coordinate2D operator *(Coordinate2D a, int b) => new Coordinate2D(a.x*b, a.y *b);
     public static bool operator ==(Coordinate2D a, Coordinate2D b) => a.x == b.x && a.y == b.y;
     public static bool operator !=(Coordinate2D a, Coordinate2D b) => a.x != b.x || a.y != b.y;
     public bool Equals(Coordinate2D other) => other == this;
