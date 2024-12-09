@@ -6,7 +6,7 @@ using aocUtils.IO;
 
 public class Day09
 {
-    private const string DEFAULT_INPUT_FILE = "./inputs/example.txt";
+    private const string DEFAULT_INPUT_FILE = "./inputs/real-input.txt";
     
     private string inputFile;
     
@@ -67,11 +67,57 @@ public class Day09
         Console.WriteLine($"part 2 solution: {result}");
     }
 
-    private string interpretInput()
+    private long interpretInput()
     {
-        return ""
-    }
+        int leftReaderPos = 0;
+        int rightReaderPos = input.Length - 1;
 
+        int currentPos = 0;
+        
+        long accumulator = 0;
+        long factor = 0;
+
+        int rightCounter = 0;
+        while (leftReaderPos <= rightReaderPos)
+        {
+            if (currentPos % 2 == 0)
+            {
+                // should add numbers from the left
+                int spots = input[currentPos] - '0';
+                for (int i = 0; i < spots; i++)
+                {
+                    accumulator += factor++ * (leftReaderPos) / 2L;
+                }
+
+                currentPos++;
+                leftReaderPos += 2;
+            }
+            else
+            {
+                // should add numbers from the right
+                int spots = input[currentPos] - '0';
+
+                if (rightCounter == 0)
+                {
+                    rightCounter = input[rightCounter] - '0';
+                }
+                
+                for (int i = 0; i < Math.Min(spots, rightCounter); i++)
+                {
+                    accumulator += factor++ * (rightReaderPos) / 2L;
+                    rightCounter--;
+                }
+
+                if (rightCounter == 0)
+                {
+                    
+                    //define condition for rightReader to decrease -2
+                    // define condition for position to increase +1
+                }
+            }
+        }
+
+    }
 }
 
 
