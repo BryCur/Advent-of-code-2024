@@ -6,7 +6,7 @@ using aocUtils.IO;
 
 public class Day09
 {
-    private const string DEFAULT_INPUT_FILE = "./inputs/real-input.txt";
+    private const string DEFAULT_INPUT_FILE = "./inputs/example.txt";
     
     private string inputFile;
     
@@ -46,7 +46,6 @@ public class Day09
     private void parseInput()
     {
         TextFileReader.readFile(inputFile, parseLine);
-        string interpretedInput = interpretInput();
         Console.WriteLine("input processed");
     }
 
@@ -57,7 +56,7 @@ public class Day09
 
     public void part1()
     {
-        int result = 0;
+        long result = interpretInput();
         Console.WriteLine($"part 1 solution: {result}");
     }
     
@@ -70,23 +69,29 @@ public class Day09
     private long interpretInput()
     {
         int leftReaderPos = 0;
-        int rightReaderPos = input.Length - 1;
+        int rightReaderPos = input.Length - (input.Length % 2 == 0?  2 : 1);
 
         int currentPos = 0;
         
         long accumulator = 0;
         long factor = 0;
+        string rpz = "";
 
-        int rightCounter = 0;
+        Queue<long> rightQueue = new Queue<long>();
+        fillQueue(rightQueue, rightReaderPos, input[rightReaderPos] - '0');
+        
+        
+        // condition to stop is wrong...
         while (leftReaderPos <= rightReaderPos)
         {
-            if (currentPos % 2 == 0)
+            if (currentPos % 2 == 0 && leftReaderPos != rightReaderPos)
             {
                 // should add numbers from the left
                 int spots = input[currentPos] - '0';
                 for (int i = 0; i < spots; i++)
                 {
-                    accumulator += factor++ * (leftReaderPos) / 2L;
+                    accumulator += factor++ * (leftReaderPos / 2L);
+                    rpz += $"{(leftReaderPos / 2L)},";
                 }
 
                 currentPos++;
@@ -96,27 +101,35 @@ public class Day09
             {
                 // should add numbers from the right
                 int spots = input[currentPos] - '0';
-
-                if (rightCounter == 0)
+                
+                for (int i = 0; i <  spots; i++)
                 {
-                    rightCounter = input[rightCounter] - '0';
+                    if (rightQueue.Count == 0)
+                    {
+                        rightReaderPos -= 2;
+                        fillQueue(rightQueue, rightReaderPos, input[rightReaderPos] - '0');
+                    }
+                    long value = rightQueue.Dequeue();
+                    accumulator += factor++ * (value / 2L);
+                    rpz += $"{(value / 2L)},";
                 }
                 
-                for (int i = 0; i < Math.Min(spots, rightCounter); i++)
-                {
-                    accumulator += factor++ * (rightReaderPos) / 2L;
-                    rightCounter--;
-                }
-
-                if (rightCounter == 0)
-                {
-                    
-                    //define condition for rightReader to decrease -2
-                    // define condition for position to increase +1
-                }
+                currentPos++;
+                
             }
         }
 
+        
+        Console.WriteLine($"string representation: {rpz}");
+        return accumulator;
+    }
+
+    void fillQueue(Queue<long> queue, long value, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            queue.Enqueue(value);
+        }
     }
 }
 
