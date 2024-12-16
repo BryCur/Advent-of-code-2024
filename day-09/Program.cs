@@ -6,7 +6,7 @@ using aocUtils.IO;
 
 public class Day09
 {
-    private const string DEFAULT_INPUT_FILE = "./inputs/example.txt";
+    private const string DEFAULT_INPUT_FILE = "./inputs/real-input.txt";
     
     private string inputFile;
     
@@ -108,6 +108,11 @@ public class Day09
                     {
                         rightReaderPos -= 2;
                         fillQueue(rightQueue, rightReaderPos, input[rightReaderPos] - '0');
+                    }
+
+                    if (rightReaderPos < leftReaderPos)
+                    {
+                        break;
                     }
                     long value = rightQueue.Dequeue();
                     accumulator += factor++ * (value / 2L);
