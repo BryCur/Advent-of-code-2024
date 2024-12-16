@@ -5,7 +5,7 @@ using aocUtils;
 using aocUtils.IO;
 using day_11;
 
-public class Day10
+public class Day11
 {
     private const string DEFAULT_INPUT_FILE = "./inputs/real-input.txt";
     private const int MAX_BLINKS = 75;
@@ -32,17 +32,17 @@ public class Day10
         
         DateTime startTime = DateTime.Now;
         
-        Day10 day10 = new Day10(input);
+        Day11 day11 = new Day11(input);
         
-        day10.part1();
-        day10.part2();
+        day11.part1();
+        day11.part2();
         
         double timeElapsed = (DateTime.Now - startTime).TotalMilliseconds;
         Console.WriteLine($"Time elapsed: {timeElapsed}");
         
     }
 
-    public Day10(String inputFile)
+    public Day11(String inputFile)
     {
         this.InputFile = inputFile;
         parseInput();
