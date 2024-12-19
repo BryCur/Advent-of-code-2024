@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Runtime.CompilerServices;
-using aocUtils;
-using aocUtils.IO;
-using day_10;
+﻿using aocUtils.IO;
 using day_12;
 
 public class Day12
@@ -57,14 +53,54 @@ public class Day12
         {
             for (int j = 0; j < Input[i].Length; j++)
             {
-                Grid[i, j] = new Day12Node(Input[i][j], i, j);
+                Day12Node node = new Day12Node(Input[i][j], i, j);
+                Grid[i, j] = node;
                 
                 if(j > 0) { Grid[i,j].AddNeighbor(Grid[i,j-1]); }
                 if(i > 0) { Grid[i,j].AddNeighbor(Grid[i-1,j]); }
             }
         }
         
+        for(int i=0;i<Grid.GetLength(0);i++)
+        {
+            for (int j = 0; j < Grid.GetLength(1); j++)
+            {
+               discoverGarden(Grid[i, j]);
+            }
+        }
+        
         Console.WriteLine("input processed");
+    }
+
+    public void discoverGarden(Day12Node startNode)
+    {
+        if (startNode.getGarden() == null)
+        {
+            GardenGroup garden = new GardenGroup(startNode.GetValue());
+            garden.addTile(startNode);
+            startNode.setGarden(garden);
+            GardenGroups.Add(garden);
+        }
+        
+        foreach (Day12Node neighbour in startNode.GetAdjacentNodes())
+        {
+            discoverGarden(neighbour, startNode.getGarden());   
+        }
+    }
+    public void discoverGarden(Day12Node startNode, GardenGroup gardenGroup)
+    {
+        if (startNode.getGarden() != null)
+        {
+            return;
+        }
+        
+        startNode.setGarden(gardenGroup);
+        gardenGroup.addTile(startNode);
+
+        foreach (Day12Node neighbour in startNode.GetAdjacentNodes())
+        {
+            discoverGarden(neighbour, startNode.getGarden());   
+        }
     }
 
     public void parseLine(string line)
@@ -83,8 +119,8 @@ public class Day12
 
     public void part1()
     {
-        int result = 0;
-
+        long result = GardenGroups.Select(group => group.getArea() * group.getPerimeter()).Aggregate(0L, (x, y) => x + y);
+        
         Console.WriteLine($"part 1 solution: {result}");
     }
     
