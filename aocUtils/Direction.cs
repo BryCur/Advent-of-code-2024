@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using aocUtils;
 
-namespace day_06;
+namespace aocUtils;
 
 public class Direction
 {
