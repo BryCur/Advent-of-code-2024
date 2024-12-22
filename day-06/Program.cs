@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using aocUtils;
 using aocUtils.IO;
-using day_06;
 
 public class Day06
 {
