@@ -16,8 +16,24 @@ public class Day18Node: LinkedNode<Coordinate2D>
         neighbor.AddAdjacentNode(this);
         AddAdjacentNode(neighbor);
     }
+
+    public void transformToWall()
+    {
+        if (this.isWall)
+        {
+            return;
+        }
+        
+        this.isWall = true;
+        foreach (var neighbor in this.AdjacentNodes)
+        {
+            neighbor.GetAdjacentNodes().Remove(this);
+        }
+        this.GetAdjacentNodes().Clear();
+    }
     
     public bool getIsWall() => isWall;
+    public void setIsWall(bool isWall) => this.isWall = isWall;
     
     
 }
