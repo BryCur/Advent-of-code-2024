@@ -57,35 +57,62 @@ public class Day19
     public void part1()
     {
         // sum all diffs
-        int result = designs.Count(d => testDesign(d));
+        int result = designs.Count(testDesign_withcombination);
         Console.WriteLine($"part 1 solution: {result}");
     }
     
     public void part2()
     {
-        long result = 0;
+        long result = designs.Select(countPossibleCombinations).Aggregate(0, ((aggr, item) => aggr + item));
         Console.WriteLine("part 2 solution: " + result);
     }
 
-    public bool testDesign(string design)
+    public int countPossibleCombinations(string design)
     {
-        int length = 1;
-        string remainingDesign = design;
-        while (length < remainingDesign.Length)
+        int count = 0;
+        foreach (List<string> combination in GenerateTowelCombinationsLazy(design))
         {
-            string tested = remainingDesign.Substring(0, length);
-
-            if (availableTowels.Contains(tested))
+            if (string.Join("", combination).Equals(design))
             {
-                remainingDesign = remainingDesign.Substring(length);
-                length = 1;
-            } else
-            {
-                length++;
+                count++;
             }
         }
         
-        return remainingDesign.Length == 0;
+        Console.WriteLine($"design {design} can be made with {count} combinations");
+        return count;
+    }
+
+    public bool testDesign_withcombination(string design)
+    {
+        
+        foreach (List<string> combination in GenerateTowelCombinationsLazy(design))
+        {
+            if (string.Join("", combination).Equals(design))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public IEnumerable<List<string>> GenerateTowelCombinationsLazy(string goal)
+    {
+        if (goal.Length == 0)
+        {
+            yield return new List<String>();
+        }
+        else
+        {
+            foreach (var element in availableTowels.Where(goal.StartsWith))
+            {
+                string remainingGoal = goal.Substring(element.Length);
+                foreach (var subCombination in GenerateTowelCombinationsLazy(remainingGoal))
+                {
+                    subCombination.Insert(0, element);
+                    yield return subCombination;
+                }
+            }
+        }
     }
 }
 
