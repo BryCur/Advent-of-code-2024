@@ -24,6 +24,7 @@ public class Direction
     public char getCharacter() => character;
 
     public static Direction GetDirection(char dir) => ALL_DIRECTIONS.Single(d => d.character == dir);
+    public static Direction GetDirectionFromVector(Coordinate2D vector) => ALL_DIRECTIONS.Single(d => d.vector == vector);
 
     public static bool isDirectionChar(char tested) =>
         ALL_DIRECTIONS.Select(d => d.character).ToList().Contains(tested);
