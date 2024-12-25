@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.CompilerServices;
 using aocUtils.IO;
+using day_19;
 
 public class Day19
 {
@@ -63,6 +64,7 @@ public class Day19
     
     public void part2()
     {
+        
         long result = designs.Select(countPossibleCombinations).Aggregate(0, ((aggr, item) => aggr + item));
         Console.WriteLine("part 2 solution: " + result);
     }
@@ -70,7 +72,9 @@ public class Day19
     public int countPossibleCombinations(string design)
     {
         int count = 0;
-        foreach (List<string> combination in GenerateTowelCombinationsLazy(design))
+        MemoisedCombinator memoisedCombinator = new MemoisedCombinator(availableTowels);
+        
+        foreach (List<string> combination in memoisedCombinator.GenerateTowelCombinationsLazy(design))
         {
             if (string.Join("", combination).Equals(design))
             {
