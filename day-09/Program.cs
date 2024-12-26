@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using aocUtils;
 using aocUtils.IO;
+using day_09;
 
 public class Day09
 {
@@ -62,7 +63,7 @@ public class Day09
     
     public void part2()
     {
-        int result = 0;
+        long result = interpretInput2();
         Console.WriteLine($"part 2 solution: {result}");
     }
 
@@ -125,10 +126,88 @@ public class Day09
         }
 
         
-        Console.WriteLine($"string representation: {rpz}");
+        // Console.WriteLine($"string representation: {rpz}");
         return accumulator;
     }
 
+
+    private long interpretInput2()
+    {
+        List<DiskSpace> disk = new List<DiskSpace>();
+
+        // create disk state as list of objects
+        for (int i = 0; i < input.Length; i++)
+        {
+            int size = input[i] - '0';
+            bool isFile = i % 2 == 0;
+            
+            DiskSpace current = new DiskSpace(size, isFile ? i/2 : 0, !isFile);
+            disk.Add(current);
+        }
+
+        // re-arrange files according to instructions 
+        for (int i = disk.Count - 1; i > 0; i-- )
+        {
+            DiskSpace current = disk[i];
+            if (current.IsEmpty) { continue; }
+            
+            // current is a file
+            DiskSpace? firstFittingEmptySpace = disk
+                .Slice(0, i)
+                .Find(space => space.IsEmpty && space.Size >= current.Size);
+            
+            if(firstFittingEmptySpace == null) { continue; }
+
+            int indexOfEmptySpace = disk.IndexOf(firstFittingEmptySpace);
+            if (firstFittingEmptySpace.Size > current.Size)
+            {
+                // "split" empty space in a partition of the size of current, and a partition
+                // of remaining space, then "swap" equal spaces
+                
+                // in practice: 
+                // 1. create copy of current file
+                DiskSpace copyOfFile = new DiskSpace(current.Size, current.Value, current.IsEmpty);
+                
+                // 2. insert copy of file in front of empty space 
+                disk.Insert(indexOfEmptySpace, copyOfFile);
+                i += 1;
+                
+                // 3. reduce emptySpace Size 
+                firstFittingEmptySpace.Size -= copyOfFile.Size;
+                
+                // 4. set current as an empty space
+                current.IsEmpty = true;
+            }
+            else
+            {
+                // empty space perfectly matches the current file ==> swap the properties
+                firstFittingEmptySpace.Value = current.Value;
+                current.Value = 0;
+                firstFittingEmptySpace.IsEmpty = false;
+                current.IsEmpty = true;
+            }
+        }
+
+        long result = 0;
+        long iterator = 0;
+        // compute new checksum
+        foreach (DiskSpace space in disk)
+        {
+            if (space.IsEmpty)
+            {
+                iterator += space.Size;
+                continue;
+            }
+
+            for (int i = 0; i < space.Size; i++)
+            {
+                result += space.Value * iterator++;
+            }
+        }
+
+        return result;
+    }
+    
     void fillQueue(Queue<long> queue, long value, int count)
     {
         for (int i = 0; i < count; i++)
