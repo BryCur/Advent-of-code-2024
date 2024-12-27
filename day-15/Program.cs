@@ -193,6 +193,29 @@ public class Day15
             Console.WriteLine(line);
         }
     }
+    
+    private char[,] ScaleUpMapGrid()
+    {
+        char[,] scaledUpMap = new char[mapGrid.GetLength(0), mapGrid.GetLength(1)*2];
+        
+        for (int i = 0; i < Input.Count; i++)
+        {
+            for (int j = 0; j < Input[i].Length*2; j += 2)
+            {
+                scaledUpMap[i, j] = Input[i][j];
+                if (Input[i][j] == ROBOT_SYMBOL)
+                {
+                    robotPosition = new Coordinate2D(i, j);
+                }
+                else
+                {
+                    scaledUpMap[i,j+1] = Input[i][j];
+                }
+            }
+        }
+        
+        return scaledUpMap;
+    }
 }
 
 
