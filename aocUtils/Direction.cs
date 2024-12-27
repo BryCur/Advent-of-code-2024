@@ -5,11 +5,13 @@ namespace aocUtils;
 
 public class Direction
 {
-    public static Direction UP = new Direction('^', new Coordinate2D(-1,0));
-    public static Direction RIGHT = new Direction('>', new Coordinate2D(0,1));
-    public static Direction DOWN = new Direction('v', new Coordinate2D(1,0));
-    public static Direction LEFT = new Direction('<', new Coordinate2D(0,-1));
-    private static List<Direction> ALL_DIRECTIONS = new(){UP, RIGHT, DOWN, LEFT};
+    public static readonly Direction UP = new Direction('^', new Coordinate2D(-1,0));
+    public static readonly Direction RIGHT = new Direction('>', new Coordinate2D(0,1));
+    public static readonly Direction DOWN = new Direction('v', new Coordinate2D(1,0));
+    public static readonly Direction LEFT = new Direction('<', new Coordinate2D(0,-1));
+    public static readonly List<Direction> VERTICAL_DIRECTIONS = new(){UP, DOWN};
+    public static readonly List<Direction> HORIZONTAL_DIRECTIONS = new(){RIGHT, LEFT};
+    public static readonly List<Direction> ALL_DIRECTIONS = new(){UP, RIGHT, DOWN, LEFT};
 
     private char character;
     private Coordinate2D vector;

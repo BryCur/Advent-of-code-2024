@@ -14,11 +14,25 @@ public class Box
 
     public bool isPositionInBox(Coordinate2D coordinate)
     {
-        return coordinate.getX() == reference.getX() && coordinate.getY() >= reference.getY() && coordinate.getY() <= reference.getY() +boxLength;
+        return coordinate.getX() == reference.getX() 
+               && coordinate.getY() >= reference.getY() 
+               && coordinate.getY() <= reference.getY() + boxLength;
+    }
+
+    public bool isBoxInPosList(List<Coordinate2D> coordinates)
+    {
+        List<Coordinate2D> posList = getCoveredBoxCoordinates();
+        return coordinates.Intersect(posList).Any();
     }
 
     public void shiftBox(Direction direction)
     {
-        reference += direction.getVector();
+        reference = reference + direction.getVector();
     }
+    
+    public Coordinate2D getReference() => reference;
+    public List<Coordinate2D> getCoveredBoxCoordinates() => new List<Coordinate2D>()
+    {
+        reference, new (reference.getX(), reference.getY()+boxLength)
+    };
 }
