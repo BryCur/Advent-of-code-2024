@@ -74,15 +74,18 @@ public class Day21
         Console.WriteLine($"part 2 solution, check: {result}"); 
     }
 
-    private string getDirectionalInstructionForNumericPad(string goal)
+    private IEnumerable<string> getDirectionalInstructionForNumericPad(string goal)
     {
         string instructions = "";
+        List<List<char>> baseLists = new List<List<char>>();
         foreach (char c in goal)
         {
             Coordinate2D nextButton = NumericPad.getKeyCoordinate(c);
-            instructions += NumericPad.getMovementInstructionFromTo(currentNumericPadPos, nextButton);
+            baseLists.Add(NumericPad.getMovementInstructionFromTo(currentNumericPadPos, nextButton).ToList());
             currentNumericPadPos = nextButton;
         }
+        
+        
 
         return instructions;
     }
